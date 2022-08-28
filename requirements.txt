@@ -1,0 +1,8 @@
+requests
+configparser
+vk
+vk_api
+datetime
+time
+sqlalchemy
+pytest
