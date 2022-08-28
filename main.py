@@ -93,13 +93,9 @@ def loop():
 
                     elif mess_text == "да" or mess_text == "Да":
                         if event.from_user:
-                            if check_writer(writer_id.id):
-                                send_message(writer_id.id,{f'{writer_id.name}, сейчас актуализируем инфу. 1 минуту'})
-                                if check_count_photos(writer_id.id) < 2:
-                                    writer_id.search_and_add_pairs()
-                            else:
-                                send_message(writer_id.id,{f'{writer_id.name}, сейчас подберем пару. 1 минуту'})
-                                writer_id.search_and_add_writer_and_pairs()
+                            send_message(writer_id.id,{f'{writer_id.name}, сейчас подберем вам пару. 1 минуту'})
+                            if check_count_photos(writer_id.id) < 2:
+                                writer_id.search_and_add_pairs()
                             next_user_list = get_next_user(writer_id.id)
                             vk.messages.send(
                                 user_id=writer_id.id,
