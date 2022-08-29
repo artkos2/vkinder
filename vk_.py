@@ -63,3 +63,4 @@ class Vk_writer:
     def add_writer_on_base(self):
         add_writer(self.id, self.name, self.age, self.city_id, self.sex_id)
         return 
+

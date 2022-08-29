@@ -78,9 +78,12 @@ def loop():
                         writer_id = Vk_writer(writer_id)
                     if not hasattr(writer_id, 'age'):
                         if mess_text.isdigit():
-                            send_message(writer_id.id,'Принято, чтобы подобрать пару, ответь "да" :)')
-                            writer_id.age = int(mess_text)
-                            add_writer(writer_id.id, writer_id.name, writer_id.age, writer_id.city_id, writer_id.sex_id)
+                            if int(mess_text) >= 80 or int(mess_text) <= 18:
+                                send_message(writer_id.id,'Возраст может быть от 18 до 80 лет, введите еще раз')
+                            else:
+                                send_message(writer_id.id,'Принято, чтобы подобрать пару, ответь "да" :)')
+                                writer_id.age = int(mess_text)
+                                add_writer(writer_id.id, writer_id.name, writer_id.age, writer_id.city_id, writer_id.sex_id)
                         else:
                             send_message(writer_id.id, {f'Привет, {writer_id.name}, введите свой возраст'})
                     else:
