@@ -23,14 +23,26 @@ def get_photos(owner_id):
         return [photos_list[0][0],photos_list[1][0],photos_list[2][0]]
     else:
         False
-
+def user_city(city_name):
+    res = vk_api.database.getCities(country_id = 1, q= city_name, count = 5)
+    if res['count'] == 0:
+        return False
+    else:
+        city_list = []
+        for city in res['items']:
+            if 'region' in city:
+                city_list.append([city['id'], city['title'], city['region']])
+            else:
+                city_list.append([city['id'], city['title'], city['title']])
+    return city_list
 class Vk_writer:
     def __init__(self, writer_id):
         if not check_writer(writer_id):
             self.id = writer_id
             res = vk_api.users.get(user_id= self.id,fields = 'city, sex, bdate')
             self.name = res[0]['first_name']
-            self.city_id = int(res[0]['city']['id'])
+            if 'city' in res[0]:
+                self.city_id = int(res[0]['city']['id'])
             if int(res[0]['sex']) == 1:
                 self.sex_id = 2
             elif int(res[0]['sex']) == 2:
@@ -64,3 +76,8 @@ class Vk_writer:
         add_writer(self.id, self.name, self.age, self.city_id, self.sex_id)
         return 
 
+
+# from pprint import pprint
+# res = vk_api.database.getCities(country_id = 1, q= 'очер', count = 5)
+# pprint(res)
+# print(user_city('пермь'))
